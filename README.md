@@ -28,7 +28,7 @@ Usage:
   PixivAuto.py (-h | --help)
 ```
 
-Protip: I prefer to have this script running on $PATH. This way I can invoke it anywhere in my system.
+> Protip: I prefer to have this script running on $PATH. This way I can invoke it anywhere in my system.
 
 ### JSON structure
 
@@ -44,7 +44,7 @@ The script uses a very simple JSON that is similar to a Python dictionary. Here 
 
 Where ``123456789`` is the artist ID (from their Pixiv url) and ``name`` is the remote folder they are going to be uploaded to. I personally keep these as the artist names.
 
-Protip: it's preferrable to keep your PixivUtil2 filename settings as ``%member_id%\%urlFilename%``, since artist IDs **will never** change (unless they delete their profile). Keeping it as profile names will render this tool mostly useless since a lot of artists change their names to match events dates and locations (such as ``わたお@2日目南3 ナ-37b``, where everything after the ``@`` is event info).
+> Protip: it's preferable to keep your PixivUtil2 filename settings as ``%member_id%\%urlFilename%``, since artist IDs **will never** change (unless they delete their profile). Keeping it as profile names will render this tool mostly useless since a lot of artists change their names to match events dates and locations (such as ``わたお@2日目南3 ナ-37b``, where everything after the ``@`` is event info).
 
 ### Configuration
 
@@ -52,9 +52,9 @@ By default, the script is useless. You need to open it in any text editor (a goo
 
 ```python
 # Use absolute paths (C:/example/pixiv.json) if you plan to add this tool to your $PATH
-PixivInput = "./pixiv.json"         # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
-PixivUtil2 = "./PixivUtil2.py"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
-RemotePath = "remote:destpath/"     # rclone remote | e.g. onedrive:MyPictures/Hentai/
+PixivInput = "./pixiv.json"                    # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
+PixivUtil2 = "./PixivUtil2/PixivUtil2.py"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
+RemotePath = "remote:destpath/"                # rclone remote | e.g. onedrive:MyPictures/Hentai/
 ```
 
 You can also customize a some of the commands ran by rclone and PixivUtil2 in the following sections:

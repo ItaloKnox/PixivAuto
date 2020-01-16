@@ -14,11 +14,11 @@ from timeit import default_timer as timer
 from docopt import docopt
 
 # Use absolute paths (C:/example/pixiv.json) if you plan to add this tool to your $PATH
-PixivInput = "./pixiv.json"         # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
-PixivUtil2 = "./PixivUtil2.py"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
-RemotePath = "remote:destpath/"         # rclone remote | e.g. onedrive:MyPictures/Hentai/
+PixivInput = "."                               # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
+PixivUtil2 = "./PixivUtil2"                    # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
+RemotePath = "remote:destpath"                 # rclone remote | e.g. onedrive:MyPictures/Hentai/
 
-with open(PixivInput, 'r') as f:
+with open(f'{PixivInput}/pixiv.json', 'r') as f:
     artistList = json.load(f)
 
 def push():
@@ -26,9 +26,10 @@ def push():
         artistExist = os.path.isdir(f'./{artistID}')
         if artistExist == True:
                 print(f'Uploading new images from {artistName}')
-
+                
                 start = timer()
-                call([r'rclone', 'copy', f'{artistID}', f'{RemotePath}{artistName}'])   # by default: copies the artist folders to a set remote folder (variable RemotePath above)
+                arguments = f'{artistID} {RemotePath}/{artistName}'
+                call([r'rclone', 'copy'] + shlex.split(arguments))   # by default: copies the artist folders to a set remote folder (variable RemotePath above)
                 end = timer()
                 final_time = round(end) - round(start)
 
@@ -41,7 +42,7 @@ def pull():
     cleanID = ' '.join(artistID)
     arguments = f'-n 1 -x --startaction=1 {cleanID}'    # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
 
-    call([r'py', f'{PixivUtil2}'] + shlex.split(arguments))
+    call([r'py', f'{PixivUtil2}/PixivUtil2.py'] + shlex.split(arguments))
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)
