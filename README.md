@@ -57,6 +57,24 @@ PixivUtil2 = "./PixivUtil2.py"      # PixivUtil2 source code path | e.g.: C:/Pix
 RemotePath = "remote:destpath/"     # rclone remote | e.g. onedrive:MyPictures/Hentai/
 ```
 
+You can also customize a some of the commands ran by rclone and PixivUtil2 in the following sections:
+
+#### rclone
+
+```python
+# by default: copies the artist folders to a set remote folder (variable RemotePath above)
+call([r'rclone', 'copy', f'{artistID}', f'{RemotePath}{artistName}'])
+```
+
+#### PixivUtil2
+
+```python
+# by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
+arguments = f'-n 1 -x --startaction=1 {cleanID}'
+```
+
+Please refer to each tool's manual before doing any changes. A basic knowledge of Python 3 and its [subprocess](https://docs.python.org/3/library/subprocess.html#older-high-level-api) module is also necessary.
+
 ## Contributions
 
 I prefer to not take any contributions for this repo. You are free to fork it and make it better, but please don't let me know that. I'm lazy and I'll probably stop doing it if there's a better option.

@@ -28,7 +28,7 @@ def push():
                 print(f'Uploading new images from {artistName}')
 
                 start = timer()
-                call([r'rclone', 'copy', f'{artistID}', f'{RemotePath}{artistName}'])
+                call([r'rclone', 'copy', f'{artistID}', f'{RemotePath}{artistName}'])   # by default: copies the artist folders to a set remote folder (variable RemotePath above)
                 end = timer()
                 final_time = round(end) - round(start)
 
@@ -39,7 +39,7 @@ def push():
 def pull():
     artistID = re.findall(r'[0-9]\d+', str(artistList.keys()))
     cleanID = ' '.join(artistID)
-    arguments = f'-n 1 -x --startaction=1 {cleanID}'
+    arguments = f'-n 1 -x --startaction=1 {cleanID}'    # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
 
     call([r'py', f'{PixivUtil2}'] + shlex.split(arguments))
 
