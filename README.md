@@ -52,9 +52,9 @@ By default, the script is useless. You need to open it in any text editor (a goo
 
 ```python
 # Use absolute paths (C:/example/pixiv.json) if you plan to add this tool to your $PATH
-PixivInput = "./pixiv.json"                    # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
-PixivUtil2 = "./PixivUtil2/PixivUtil2.py"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
-RemotePath = "remote:destpath/"                # rclone remote | e.g. onedrive:MyPictures/Hentai/
+PixivInput = "."                    # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
+PixivUtil2 = "./PixivUtil2"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
+RemotePath = "remote:destpath"                # rclone remote | e.g. onedrive:MyPictures/Hentai/
 ```
 
 You can also customize a some of the commands ran by rclone and PixivUtil2 in the following sections:
@@ -63,7 +63,7 @@ You can also customize a some of the commands ran by rclone and PixivUtil2 in th
 
 ```python
 # by default: copies the artist folders to a set remote folder (variable RemotePath above)
-call([r'rclone', 'copy', f'{artistID}', f'{RemotePath}{artistName}'])
+arguments = f'{artistID} {RemotePath}/{artistName}'
 ```
 
 #### PixivUtil2
