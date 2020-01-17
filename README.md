@@ -2,8 +2,9 @@
 
 ## What is it?
 
-PixivAuto is a personal project I started to automate a few commands I used to run almost on a daily-basis to download and upload Pixiv images from a list of artists to my Onedrive, using rclone and PixivUtil2 to 
-accomplish both tasks. I took this project as a chance to improve my Python skills, and it is slowly getting polished over time. Do not expect anything great from it, it exists to serve a very specific reason.
+PixivAuto is a personal project I started to automate a few commands I used to run almost on a daily-basis to download and upload Pixiv images from a list of artists to my Onedrive, using rclone and PixivUtil2 to accomplish both tasks.
+
+Why run ``PixivUtil2.py -n 1 -x --startaction=1 29362997 5594793 1836747 6018940 4446354 13992671 4493551 2053497 9666061 14212838 1590145 7738363 12378747 14438469 36534524 8129277 17178734 882970`` every time I want to get new images from these artist ID when I can just run ``PixivAuto.py download`` and do the same in an ever-growing ID list? And while we're at this, why not use this list to keep everything in the cloud without remembering each of the 50 IDs in the list correspond to an artist which kanjis I always forget how to read?
 
 ### Does it replace PixivUtil2 and/or rclone?
 
