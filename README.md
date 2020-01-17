@@ -52,10 +52,10 @@ Where ``123456789`` is the artist ID (from their Pixiv url) and ``name`` is the 
 By default, the script is useless. You need to open it in any text editor (a good one, I hope) and edit a few variables:
 
 ```python
-# Use absolute paths (C:/example/pixiv.json) if you plan to add this tool to your $PATH
-PixivInput = "."                    # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
-PixivUtil2 = "./PixivUtil2"      # PixivUtil2 source code path | e.g.: C:/PixivUtil2/PixivUtil2.py or /home/user/PixivUtil2/PixivUtil2.py
-RemotePath = "remote:destpath"                # rclone remote | e.g. onedrive:MyPictures/Hentai/
+# Use absolute paths (such as C:/PixivAuto) if you plan to add this tool to your $PATH
+PixivInput = "."                      # list of artists | e.g.: C:/PixivAuto or /home/user/PixivAuto
+PixivUtil2 = "./PixivUtil2"           # PixivUtil2 source code path | e.g.: C:/PixivUtil2 or /home/user/PixivUtil2
+RemotePath = "remote:destpath"        # rclone remote destination | e.g.: onedrive:MyPictures/Hentai
 ```
 
 You can also customize a some of the commands ran by rclone and PixivUtil2 in the following sections:
