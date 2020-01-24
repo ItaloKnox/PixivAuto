@@ -9,7 +9,7 @@ Options:
 """
 
 import os, json, re, shlex
-from subprocess import call
+from subprocess import run
 from timeit import default_timer as timer
 from docopt import docopt
 
@@ -29,11 +29,15 @@ def push():
                 
                 start = timer()
                 arguments = f'{artistID} {RemotePath}/{artistName}'
-                call([r'rclone', 'copy'] + shlex.split(arguments))   # by default: copies the artist folders to a set remote folder (variable RemotePath above)
+                run([r'rclone', 'copy'] + shlex.split(arguments))   # by default: copies the artist folders to a set remote folder (variable RemotePath above)
                 end = timer()
                 final_time = round(end) - round(start)
 
-                print(f'Upload finished for {artistName} in {final_time} seconds')
+                if final_time >= 60:
+                    final_time = final_time / 60
+                    print(f'Upload finished for {artistName} in {final_time} minute(s)')
+                else:
+                    print(f'Upload finished for {artistName} in {final_time} second(s)')
         else:
             pass
 
@@ -42,7 +46,7 @@ def pull():
     cleanID = ' '.join(artistID)
     arguments = f'-n 1 -x --startaction=1 {cleanID}'    # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
 
-    call([r'py', f'{PixivUtil2}/PixivUtil2.py'] + shlex.split(arguments))
+    run([r'py', f'{PixivUtil2}/PixivUtil2.py'] + shlex.split(arguments))
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)

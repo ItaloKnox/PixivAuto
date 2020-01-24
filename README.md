@@ -88,5 +88,5 @@ Things that need to be fleshed out:
 
 - UNIX support
   - I have no idea if it really works outside of Windows. Probably does.
-- Upload timer
-  - If you are uploading a large folder from any user, it will always display time in seconds. I hope you are good at math.
+[x] Upload timer
+  - ~~If you are uploading a large folder from any user, it will always display time in seconds. I hope you are good at math.~~
