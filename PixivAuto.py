@@ -35,9 +35,15 @@ def push():
 
                 if final_time >= 60:
                     final_time = final_time / 60
-                    print(f'Upload finished for {artistName} in {final_time} minute(s)')
+                    if final_time > 1:
+                        print(f'Upload finished for {artistName} in {final_time} minutes')
+                    else:
+                        print(f'Upload finished for {artistName} in {final_time} minute')
                 else:
-                    print(f'Upload finished for {artistName} in {final_time} second(s)')
+                    if final_time > 1:
+                        print(f'Upload finished for {artistName} in {final_time} seconds')
+                    else:
+                        print(f'Upload finished for {artistName} in {final_time} second')
         else:
             pass
 
