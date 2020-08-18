@@ -47,12 +47,32 @@ def push():
         else:
             pass
 
-def pull():
-    artistID = re.findall(r'[0-9]\d+', str(artistList.keys()))
-    cleanID = ' '.join(artistID)
-    arguments = f'-n 1 -x --startaction=1 {cleanID}'    # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
+def chunks(iterable, count):
+    iterator = iter(iterable)
+    lst = []
+    try:
+        while True:
+            for _ in range(count):
+                lst.append(next(iterator))
+            yield lst
+            lst = []
+    except StopIteration:
+        if lst:
+            yield lst
 
-    run([r'py', f'{PixivUtil2}/PixivUtil2.py'] + shlex.split(arguments))
+from threading import Thread
+def pullThread(lst):
+    # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
+    run(['py', f'{PixivUtil2}/PixivUtil2.py', '-n', '1', '-x', '--startaction=1', *lst])
+
+def pull():
+    chunkSize = 8
+    groups = chunks(artistList.keys(), chunkSize)
+    threads = [Thread(target=pullThread, args=[group]) for group in groups]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)
