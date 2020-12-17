@@ -15,8 +15,6 @@ Nope! PixivAuto is meant to be nothing more than a substitute of human hands, ma
 - [rclone](https://rclone.org/)
 - [PixivUtil2 (source code)](https://github.com/Nandaka/PixivUtil2/)
 - Python 3.7 or higher
-- docopt
-  - run ``pip install docopt``
 
 ## Usage
 
@@ -25,7 +23,7 @@ From the command line:
 ```shell
 Usage:
   PixivAuto.py (pull | download)    # check for new images from the artists in pixiv.json
-  PixivAuto.py (push | upload)      # upload images to remote server using rclone (uses pixiv.json)
+  PixivAuto.py (push | upload) (--clean)      # upload images to remote server using rclone (uses pixiv.json). Adding --clean will delete folders after uploading (wip, will delete even if rclone fails all tries!)
   PixivAuto.py (-h | --help)
 ```
 

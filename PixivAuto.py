@@ -1,17 +1,19 @@
-"""
+help = """
 Usage:
   PixivAuto.py (pull | download)
-  PixivAuto.py (push | upload)
+  PixivAuto.py (push | upload) --clean
+  PixivAuto.py twitter
+  PixivAuto.py pics
   PixivAuto.py (-h | --help)
 
 Options:
   -h --help     Show this screen.
 """
 
-import os, json, re, shlex
+import os, json, re, shlex, shutil
 from subprocess import run
 from timeit import default_timer as timer
-from docopt import docopt
+from sys import argv
 
 # Use absolute paths (C:/example/pixiv.json) if you plan to add this tool to your $PATH
 PixivInput = "."                               # list of artists | e.g.: C:/PixivAuto/pixiv.json or /home/user/PixivAuto/pixiv.json
@@ -44,6 +46,12 @@ def push():
                         print(f'Upload finished for {artistName} in {final_time} seconds')
                     else:
                         print(f'Upload finished for {artistName} in {final_time} second')
+
+                if argv[2] == "--clean":
+                    shutil.rmtree(f'./{artistID}')
+                else:
+                    pass
+
         else:
             pass
 
@@ -63,7 +71,7 @@ def chunks(iterable, count):
 from threading import Thread
 def pullThread(lst):
     # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
-    run(['py', f'{PixivUtil2}/PixivUtil2.py', '-n', '1', '-x', '--startaction=1', *lst])
+    run(['py', f'{PixivUtil2}/PixivUtil2.py', '-n', '1', '-x', '-s', '1', 'n', *lst])
 
 def pull():
     chunkSize = 8
@@ -74,10 +82,16 @@ def pull():
     for thread in threads:
         thread.join()
 
-if __name__ == '__main__':
-    arguments = docopt(__doc__)
+try:
+    arguments = argv[1]
+except:
+    exit(help)
 
-    if arguments['push'] or arguments['upload']:
-        push()
-    elif arguments['pull'] or arguments['download']:
-        pull()
+if arguments == "push" or arguments == "upload":
+    push()
+elif arguments == "pull" or arguments == "download":
+    pull()
+elif arguments == "-h" or "--help":
+    exit(help)
+else:
+    exit(help)
