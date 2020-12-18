@@ -47,9 +47,10 @@ def push():
                     else:
                         print(f'Upload finished for {artistName} in {final_time} second')
 
-                if argv[2] == "--clean":
-                    shutil.rmtree(f'./{artistID}')
-                else:
+                try:
+                    if argv[2] == "--clean":
+                        shutil.rmtree(f'./{artistID}')
+                except:
                     pass
 
         else:
