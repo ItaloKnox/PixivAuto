@@ -27,7 +27,7 @@ def push():
     for artistID, artistName in artistList.items():
         artistExist = os.path.isdir(f'./{artistID}')
         if artistExist == True:
-                print(f'Uploading new images from {artistName}')
+                print(f'Uploading new images by {artistName} (ID: {artistID})')
                 
                 start = timer()
                 arguments = f'{artistID} {RemotePath}/{artistName}'
