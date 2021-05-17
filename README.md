@@ -22,9 +22,19 @@ From the command line:
 
 ```shell
 Usage:
-  PixivAuto.py (pull | download)    # check for new images from the artists in pixiv.json
-  PixivAuto.py (push | upload) (--clean)      # upload images to remote server using rclone (uses pixiv.json). Adding --clean will delete folders after uploading (wip, will delete even if rclone fails all tries!)
+  PixivAuto.py (pull | download)
+    * check for new images from artists added in pixiv.json
+  PixivAuto.py (push | upload) --clean
+    * uploads files to remote. "--clean" flag deletes uploaded folders (warning: upload errors will result in data loss)
+  PixivAuto.py check <ID or name>
+    * checks if an ID or artist (remote folder name) exists in pixiv.json. If found, the line will be printed
+        * example: pixivauto check asanagi
+        * example: pixivauto check 129381
   PixivAuto.py (-h | --help)
+    * shows this screen
+
+Options:
+  -h --help     Show this screen.
 ```
 
 > Protip: I prefer to have this script running on $PATH. This way I can invoke it anywhere in my system.

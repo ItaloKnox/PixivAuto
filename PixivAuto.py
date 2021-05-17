@@ -1,13 +1,15 @@
 help = """
 Usage:
   PixivAuto.py (pull | download)
+    * check for new images from artists added in pixiv.json
   PixivAuto.py (push | upload) --clean
-  PixivAuto.py twitter
-  PixivAuto.py pics
+    * uploads files to remote. "--clean" flag deletes uploaded folders (warning: upload errors will result in data loss)
+  PixivAuto.py check <ID or name>
+    * checks if an ID or artist (remote folder name) exists in pixiv.json. If found, the line will be printed
+        * example: pixivauto check asanagi
+        * example: pixivauto check 129381
   PixivAuto.py (-h | --help)
-
-Options:
-  -h --help     Show this screen.
+    * shows this screen
 """
 
 import os, json, re, shlex, shutil
@@ -38,14 +40,14 @@ def push():
                 if final_time >= 60:
                     final_time = final_time / 60
                     if final_time > 1:
-                        print(f'Upload finished for {artistName} in {final_time} minutes')
+                        print(f'Finished uploading {artistName} in {final_time} minutes')
                     else:
-                        print(f'Upload finished for {artistName} in {final_time} minute')
+                        print(f'Finished uploading {artistName} in {final_time} minute')
                 else:
                     if final_time > 1:
-                        print(f'Upload finished for {artistName} in {final_time} seconds')
+                        print(f'Finished uploading {artistName} in {final_time} seconds')
                     else:
-                        print(f'Upload finished for {artistName} in {final_time} second')
+                        print(f'Finished uploading {artistName} in {final_time} second')
 
                 try:
                     if argv[2] == "--clean":
@@ -83,6 +85,19 @@ def pull():
     for thread in threads:
         thread.join()
 
+def check():
+    try:
+        search = argv[2]
+    except:
+        exit(help)
+    
+    file = open(f'{PixivInput}/pixiv.json', "r")
+    for line in file:
+        if re.search(search, line):
+            print(line)
+        # else:
+        #     print("Artist/ID not found")
+
 try:
     arguments = argv[1]
 except:
@@ -92,6 +107,8 @@ if arguments == "push" or arguments == "upload":
     push()
 elif arguments == "pull" or arguments == "download":
     pull()
+elif arguments == "check":
+    check()
 elif arguments == "-h" or "--help":
     exit(help)
 else:
