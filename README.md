@@ -24,17 +24,21 @@ From the command line:
 Usage:
   PixivAuto.py (pull | download)
     * check for new images from artists added in pixiv.json
+
   PixivAuto.py (push | upload) --clean
     * uploads files to remote. "--clean" flag deletes uploaded folders (warning: upload errors will result in data loss)
+
   PixivAuto.py check <ID or name>
     * checks if an ID or artist (remote folder name) exists in pixiv.json. If found, the line will be printed
         * example: pixivauto check asanagi
         * example: pixivauto check 129381
+
+  PixivAuto.py add <ID> <name>
+    * adds artist to the json list
+        * example: pixivauto add asanagi 129381
+
   PixivAuto.py (-h | --help)
     * shows this screen
-
-Options:
-  -h --help     Show this screen.
 ```
 
 > Protip: I prefer to have this script running on $PATH. This way I can invoke it anywhere in my system.

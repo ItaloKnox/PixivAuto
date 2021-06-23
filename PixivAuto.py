@@ -2,12 +2,19 @@ help = """
 Usage:
   PixivAuto.py (pull | download)
     * check for new images from artists added in pixiv.json
+
   PixivAuto.py (push | upload) --clean
     * uploads files to remote. "--clean" flag deletes uploaded folders (warning: upload errors will result in data loss)
+
   PixivAuto.py check <ID or name>
     * checks if an ID or artist (remote folder name) exists in pixiv.json. If found, the line will be printed
         * example: pixivauto check asanagi
         * example: pixivauto check 129381
+
+  PixivAuto.py add <ID> <name>
+    * adds artist to the json list
+        * example: pixivauto add asanagi 129381
+
   PixivAuto.py (-h | --help)
     * shows this screen
 """
@@ -98,6 +105,26 @@ def check():
         # else:
         #     print("Artist/ID not found")
 
+def add():
+    try:
+        artistID = argv[2]
+    except:
+        artistID = input("Pixiv Artist ID (numbers from url): ")
+    
+    try:
+        artistName = argv[3]
+    except:
+        artistName = input("Name of the artist (ANSI only, no spaces): ")
+
+    add_input = {artistID : artistName}
+
+    with open(f'{PixivInput}/pixiv.json', 'r') as pixiv_json:
+        data = json.load(pixiv_json)
+        data.update(add_input)
+
+    with open(f'{PixivInput}/pixiv.json', 'w') as pixiv_json:
+        json.dump(data, pixiv_json, indent=4)
+
 try:
     arguments = argv[1]
 except:
@@ -109,6 +136,8 @@ elif arguments == "pull" or arguments == "download":
     pull()
 elif arguments == "check":
     check()
+elif arguments == "add":
+    add()
 elif arguments == "-h" or "--help":
     exit(help)
 else:
