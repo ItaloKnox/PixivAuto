@@ -15,6 +15,9 @@ Usage:
     * adds artist to the json list
         * example: pixivauto add asanagi 129381
 
+  PixivAuto.py --show-list
+    * prints the entire pixiv.json file
+
   PixivAuto.py (-h | --help)
     * shows this screen
 """
@@ -81,11 +84,14 @@ def chunks(iterable, count):
 from threading import Thread
 def pullThread(lst):
     # by default: downloads images from FIRST PAGE of the artists in pixiv.json and closes PixivUtil2 after the process is done
-    run(['py', f'{PixivUtil2}/PixivUtil2.py', '-n', '1', '-x', '-s', '1', 'n', *lst])
+    run(['py', f'{PixivUtil2}/PixivUtil2.py', '-n', '1', '-x', '-s', '1', *lst])
 
 def pull():
-    chunkSize = 8
-    groups = chunks(artistList.keys(), chunkSize)
+    num = sum(1 for line in open(f'{PixivInput}/pixiv.json'))
+    # change the number below (default: 5) to create more threads. By the default, the program divides your list in 5 thread to avoid flooding the machine with Python instances. More threads = more CPU usage.
+    chunkSize = num / 5
+    roundChunk = round(chunkSize)
+    groups = chunks(artistList.keys(), roundChunk)
     threads = [Thread(target=pullThread, args=[group]) for group in groups]
     for thread in threads:
         thread.start()
@@ -125,6 +131,12 @@ def add():
     with open(f'{PixivInput}/pixiv.json', 'w') as pixiv_json:
         json.dump(data, pixiv_json, indent=4)
 
+def showList():
+    with open(f'{PixivInput}/pixiv.json', 'r') as pixiv_json:
+        data = json.load(pixiv_json)
+        print(json.dumps(data, indent=4))
+        pixiv_json.close()
+
 try:
     arguments = argv[1]
 except:
@@ -138,6 +150,8 @@ elif arguments == "check":
     check()
 elif arguments == "add":
     add()
+elif arguments == "--show-list":
+    showList()
 elif arguments == "-h" or "--help":
     exit(help)
 else:

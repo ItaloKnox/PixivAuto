@@ -37,6 +37,9 @@ Usage:
     * adds artist to the json list
         * example: pixivauto add asanagi 129381
 
+  PixivAuto.py --show-list
+    * prints the entire pixiv.json file
+
   PixivAuto.py (-h | --help)
     * shows this screen
 ```
