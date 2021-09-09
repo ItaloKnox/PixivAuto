@@ -88,7 +88,7 @@ def pullThread(lst):
 
 def pull():
     num = sum(1 for line in open(f'{PixivInput}/pixiv.json'))
-    # change the number below (default: 5) to create more threads. By the default, the program divides your list in 5 thread to avoid flooding the machine with Python instances. More threads = more CPU usage.
+    # change the number below (default: 5) to create more threads. By default, the program divides your list in 5 threads to avoid flooding the machine with Python instances. More threads = more CPU usage.
     chunkSize = num / 5
     roundChunk = round(chunkSize)
     groups = chunks(artistList.keys(), roundChunk)
